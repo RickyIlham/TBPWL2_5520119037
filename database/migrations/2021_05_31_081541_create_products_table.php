@@ -16,16 +16,29 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
-            $table->string('categories_id');
-            $table->string('brands_id');
+            $table->bigInteger('categories_id')->unsigned();
+            $table->bigInteger('brands_id')->unsigned();
             $table->integer('harga');
             $table->integer('stok');
             $table->string('foto')->nullable();
             $table->timestamps();
 
-            
-            
-        });      
+        });
+        
+        
+        Schema::table('products', function (Blueprint $table){
+            $table->foreign('categories_id')
+            ->references('id')
+            ->on('categories')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->foreign('brands_id')
+            ->references('id')
+            ->on('brands')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
     }
 
     /**

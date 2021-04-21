@@ -92,7 +92,10 @@
               
               <div class="form-group">
                   <label for="brands_id">Merk</label>
-                  <input type="text" class="form-control" name="brands_id" id="brands_id" required/>
+                  <Select class="form-control" name="brands_id" id="brands_id" required/>
+                    @foreach
+                    
+                  </Select>
               </div>
               <div class="form-group">
                   <label for="harga">Harga</label>
@@ -165,7 +168,7 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="id" id="edit-id"/>
-          <input type="hidden" name="old_cover" id="edit-old-foto"/>
+          <input type="hidden" name="old_foto" id="edit-old-foto"/>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
           <button type="submit" class="btn btn-success">Update</button>
           </form>

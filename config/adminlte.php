@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>KYODAN</b>.id',
+    'logo' => '<h1>KYODAN</h1>.id',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -224,28 +224,58 @@ return [
     */
 
     'menu' => [
+        
         [
             'text' => 'search',
             'search' => true,
             'topnav' => true,
         ],
         [
-            'text'        => 'PRODUK',
+            'text'        => 'Dashboard',
+            'url'         => 'admin/products',
+            'icon'        => 'fas fa-fw fa-book',
+            'can'         => ['isUser','isAdmin'],
+        ],
+        [
+            'text'        => 'Users',
             'url'         => 'admin/products',
             'icon'        => 'fas fa-fw fa-book',
             'can'         => 'isAdmin',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'profile',
-            'icon' => 'fas fa-fw fa-user',
+            'text'        => 'Pengelolaan Barang',
+            'url'         => 'admin/products',
+            'icon'        => 'fas fa-fw fa-book',
+            'can'         => ['isUser','isAdmin'],
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'profile',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'        => 'Kategori Barang',
+            'url'         => 'admin/categories',
+            'icon'        => 'fas fa-fw fa-book',
+            'can'         => ['isUser','isAdmin'],
         ],
+        [
+            'text'        => 'Merk Barang',
+            'url'         => 'admin/brands',
+            'icon'        => 'fas fa-fw fa-book',
+            'can'         => ['isUser','isAdmin'],
+        ],
+        [
+            'text'        => 'Laporan',
+            'icon'        => 'fas fa-fw fa-book',
+            'can'         => 'isAdmin',
+            'submenu'     =>[
+                                [
+                                    'text'        => ' Laporan Barang Masuk',
+                                    'url'         => 'admin/laporan/masuk',
+                                ],
+                                [
+                                    'text'        => 'Laporan Barang Keluar',
+                                    'url'         => 'admin/laporan/keluar',
+                                ],
+                            ]
+        ],
+        
     ],
 
     /*

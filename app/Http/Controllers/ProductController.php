@@ -92,6 +92,21 @@ class ProductController extends Controller
         //
     }
 
+    
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataPruduk($id)
+    {
+        $product = Product::find($id);
+
+        return response()->json($product);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -118,7 +133,7 @@ class ProductController extends Controller
                 'public/foto_barang', $filename
             );
 
-            Storage::delete('public/foto_barang/'.$req->get('old_cover'));
+            Storage::delete('public/foto_barang/'.$req->get('old_foto'));
 
             $product->foto = $filename;
         }
@@ -132,19 +147,6 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products')->with($notification);
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function getDataPruduk($id)
-    {
-        $product = Product::find($id);
-
-        return response()->json($product);
     }
     public function destroy(Request $req)
     {
