@@ -35,6 +35,13 @@ Route::get('/Admin/user', [App\Http\Controllers\Admin\UserController::class, 'in
 
 Route::get('/Admin/ajax/dataUser/{id}', [App\Http\Controllers\Admin\UserController::class, 'getDataUser']);
 
+
+Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('/ajax/dataProduct/{id}', [App\Http\Controllers\ProductController::class, 'getDataProduct']);
+Route::post('/product', [App\Http\Controllers\ProductController::class, 'submit_product'])->name('product.submit');
+Route::patch('/product/update', [App\Http\Controllers\ProductController::class, 'update_product'])->name('product.update');
+Route::delete('/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])->name('product.delete');
+
 // pengelolaan user
 Route::post('/Admin/user', [App\Http\Controllers\Admin\UserController::class, 'submit_user'])->name('user.submit');
 Route::patch('/Admin/user/update', [App\Http\Controllers\Admin\UserController::class, 'update_usesr'])->name('user.update');
