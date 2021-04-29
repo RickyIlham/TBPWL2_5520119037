@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Pengelolaan Merk')
+@section('title', 'Pengelolaan Kategori')
 
 @section('content_header')
-    <h1>Pengelolaan Merk</h1>
+    <h1>Pengelolaan Kategori</h1>
 @stop
 
 @section('content')
@@ -11,39 +11,31 @@
         <div class="row justifly-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Pengelolaan Merk') }}</div>
+                    <div class="card-header">{{ __('Pengelolaan Kategori') }}</div>
 
                     <div class="card-body">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#tambahBrandModal"><i class="fa fa-plus"></i>Tambah Data</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#tambahcategoryModal"><i class="fa fa-plus"></i>Tambah Data</button>
                         <hr/>
                         <table id="table-data" class="table table-borderer">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    <th>Qty / Jumlah </th>
-                                    <th>Kategori</th>
-                                    <th>Merk</th>
-                                    <th>Harga</th>
-                                    <th>Qty / Jumlah </th>
-                                    <th>Foto</th>
-                                    <th>Aksi</th>
+                                    <th>NO</th>
+                                    <th>NAMA</th>
+                                    <th>KETERANGAN</th>
+                                    <th>AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no=1; @endphp
-                                @foreach($products as $product)
+                                @foreach($categories as $category)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $brand->nama }}</td>
-                                        <td>{{ $brand->categories_id }}</td>
-                                        <td>{{ $brand->brands_id }}</td>
-                                        <td>{{ $brand->harga }}</td>
-                                        <td>{{ $brand->stok }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->description }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="basic example">
-                                                <button type="button" id="btn-edit-brand" class="btn btn-success" data-toggle="modal" data-target="#editBrandModal" data-id="{{ $brand->id }}">Edit</button>
-                                                <button type="button" id="btn-delete-brand" class="btn btn-danger" data-toggle="modal" data-target="#deleteBrandModal" data-id="{{ $brand->id }}">Hapus</button>
+                                                <button type="button" id="btn-edit-category" class="btn btn-success" data-toggle="modal" data-target="#editcategoryModal" data-id="{{ $category->id }}">Edit</button>
+                                                <button type="button" id="btn-delete-category" class="btn btn-danger" data-toggle="modal" data-target="#deletecategoryModal" data-id="{{ $category->id }}">Hapus</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -57,7 +49,7 @@
     </div>
 
     {{-- Tambah Data --}}
-    <div class="modal fade" id="tambahBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahcategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -67,7 +59,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('brand.submit') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('category.submit') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">NAMA</label>
@@ -88,17 +80,17 @@
     </div>
 
     {{-- Edit Data --}}
-    <div class="modal fade" id="editBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editcategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Brand Data</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit category Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('brand.update') }}" method="post">
+                    <form action="{{ route('category.update') }}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="form-group">
@@ -120,19 +112,19 @@
         </div>
     </div>
 
-    {{-- delete data brand --}}
-    <div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- delete data category --}}
+    <div class="modal fade" id="deletecategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Brand</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Apakah anda yakin akan menghapus data tersebut?
-                    <form action="{{ route('brand.delete') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('category.delete') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('DELETE')
                 </div>
@@ -154,12 +146,12 @@
 @section('js')
     <script>
         $(function(){
-             // update brand
-            $(document).on('click', '#btn-edit-brand', function(){
+             // update category
+            $(document).on('click', '#btn-edit-category', function(){
                 let id = $(this).data('id');
                 $.ajax({
                     type: "get",
-                    url: baseurl+'/ajax/dataBrand/'+id,
+                    url: baseurl+'/ajax/dataCategory/'+id,
                     dataType: 'json',
                     success: function(res){
                         $('#edit-id').val(res.id); //harus tambah id
@@ -168,8 +160,8 @@
                     },
                 });
             });
-            // delete brand
-            $(document).on('click', '#btn-delete-brand', function(){
+            // delete category
+            $(document).on('click', '#btn-delete-category', function(){
                 let id = $(this).data('id');
                 $('#delete-id').val(id);
             });
@@ -177,7 +169,7 @@
     </script>
     {{-- <script>
         $(document).ready(function() {
-            $("#btn-edit-brand").click(function(){
+            $("#btn-edit-category").click(function(){
                 let id = $(this).data('id');
                 $('#input-id').val(id);
             });

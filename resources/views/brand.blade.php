@@ -19,27 +19,19 @@
                         <table id="table-data" class="table table-borderer">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    <th>Qty / Jumlah </th>
-                                    <th>Kategori</th>
-                                    <th>Merk</th>
-                                    <th>Harga</th>
-                                    <th>Qty / Jumlah </th>
-                                    <th>Foto</th>
-                                    <th>Aksi</th>
+                                    <th>NO</th>
+                                    <th>NAMA</th>
+                                    <th>KETERANGAN</th>
+                                    <th>AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no=1; @endphp
-                                @foreach($products as $product)
+                                @foreach($brands as $brand)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $brand->nama }}</td>
-                                        <td>{{ $brand->categories_id }}</td>
-                                        <td>{{ $brand->brands_id }}</td>
-                                        <td>{{ $brand->harga }}</td>
-                                        <td>{{ $brand->stok }}</td>
+                                        <td>{{ $brand->name }}</td>
+                                        <td>{{ $brand->description }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="basic example">
                                                 <button type="button" id="btn-edit-brand" class="btn btn-success" data-toggle="modal" data-target="#editBrandModal" data-id="{{ $brand->id }}">Edit</button>

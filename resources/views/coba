@@ -1,47 +1,64 @@
-<div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Data Buku</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="post" action="{{ route('admin.product.submit') }}" enctype="multipart/form-data">
-          @csrf
-              <div class="form-group">
-                  <label for="judul">Judul Buku</label>
-                  <input type="text" class="form-control" name="judul" id="judul" required/>
-              </div>
-              <div class="form-group">
-                  <label for="penulis">Penulis</label>
-                  <input type="text" class="form-control" name="penulis" id="penulis" required/>
-              </div>
-              <div class="form-group">
-                  <label for="tahun">Tahun</label>
-                  <input min="1" type="number" id="datepicker"class="form-control" name="tahun" id="tahun" required/>
-              </div>
-              <div class="form-group">
-                  <label for="penerbit">Penerbit</label>
-                  <input type="text" class="form-control" name="penerbit" id="penerbit" required/>
-              </div>
-              <div class="form-group">
-                  <label for="cover">Cover</label>
-                  <input type="file" class="form-control" name="cover" id="cover"/>
-              </div>
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+    Route::get('', [AdminController::class, 'index'])->name('index');
+    Route::prefix('user')->name('user.')->group(function(){
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::get('show/{id}', [UserController::class, 'show'])->name('show');
+        Route::get('create', [UserController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::delete('delete/{id}', [UserController::class, 'delete'])->name('delete');
+        Route::put('update', [UserController::class, 'update'])->name('update');
+        Route::post('store', [UserController::class, 'store'])->name('store');
+    });
+    Route::prefix('product')->name('product.')->group(function(){
+        Route::get('', [ProductController::class, 'index'])->name('index');
+        Route::get('show/{id}', [ProductController::class, 'show'])->name('show');
+        Route::get('create', [ProductController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+        Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
+        Route::put('update', [ProductController::class, 'update'])->name('update');
+        Route::post('store', [ProductController::class, 'store'])->name('store');
+        Route::post('check', [ProductController::class, 'check'])->name('check');
+    });
+    Route::prefix('brand')->name('merk.')->group(function(){
+        Route::get('', [BrandController::class, 'index'])->name('index');
+        Route::get('show/{id}', [BrandController::class, 'show'])->name('show');
+        Route::get('create', [BrandController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [BrandController::class, 'edit'])->name('edit');
+        Route::delete('delete/{id}', [BrandController::class, 'delete'])->name('delete');
+        Route::put('update', [BrandController::class, 'update'])->name('update');
+        Route::post('store', [BrandController::class, 'store'])->name('store');
+    });
+    Route::prefix('category')->name('category.')->group(function(){
+        Route::get('', [CategoryController::class, 'index'])->name('index');
+        Route::get('show/{id}', [CategoryController::class, 'show'])->name('show');
+        Route::get('create', [CategoryController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+        Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+        Route::put('update', [CategoryController::class, 'update'])->name('update');
+        Route::post('store', [CategoryController::class, 'store'])->name('store');
+    });
+    Route::prefix('report')->name('report.')->group(function(){
+        Route::prefix('in')->name('in.')->group(function(){
+            Route::get('', [ReportInController::class, 'index'])->name('index');
+        });
+        Route::prefix('out')->name('out.')->group(function(){
+            Route::get('', [ReportOutController::class, 'index'])->name('index');
+        });
+    });
+});
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-primary">Kirim</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+Route::prefix('user')->name('user.')->group(function(){
+    Route::get('', [UserUserController::class,'index'])->name('index');
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-  <div class="modal fade" id="editBukuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+
+
+<div class="modal fade" id="editProdukModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -51,48 +68,57 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="{{ route('admin.product.update') }}" enctype="multipart/form-data">
-          @csrf
-          @method('PATCH')
-          <div class="row">
-              <div class="col-md-6">
-                  <div class="form-group">
-                      <label for="edit-judul">Judul Buku</label>
-                      <input type="text" class="form-control" name="judul" id="edit-judul" required/>
-                  </div>
-                  <div class="form-group">
-                      <label for="edit-penulis">Penulis</label>
-                      <input type="text" class="form-control" name="penulis" id="edit-penulis" required/>
-                  </div>
-                  <div class="form-group">
-                      <label for="edit-tahun">Tahun</label>
-                      <input min="1" type="number" id="datepicker" class="form-control" name="tahun" id="edit-tahun" required/>
-                  </div>
-                  <div class="form-group">
-                      <label for="edit-penerbit">Penerbit</label>
-                      <input type="text" class="form-control" name="penerbit" id="edit-penerbit" required/>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="form-group" id="image-area"></div>
-                  <div class="form-group">
-                      <label for="edit-cover">Cover</label>
-                      <input type="file" class="form-control" name="cover" id="edit-cover"/>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <input type="hidden" name="id" id="edit-id"/>
-          <input type="hidden" name="old_cover" id="edit-old-cover"/>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-success">Update</button>
-          </form>
+        <form action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" value="{{$products->id}}">
+                <div class="card-body">
+                <div class="form-group">
+                    <label for="name">Nama</label>
+                    <input type="text" id="name" name="name" value="{{$products->name}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="qty">QTY</label>
+                    <input type="number" id="qty" name="qty" value="{{$products->qty}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="brand_id">Merek</label>
+                    <select name="brand_id" id="brand_id" class="custom-select" required>
+                        @foreach($brands as $brand)
+                            @if($brand->id == $products->brand_id)
+                            <option value="{{$brand->id}}" selected>{{$brand->name}}</option>
+                            @else
+                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="category_id">Kategori</label>
+                    <select name="category_id" id="category_id" class="custom-select" required>
+                        @foreach($categories as $category)
+                            @if($category->id == $products->brand_id)
+                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                            @else
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="photo">Foto <small>*optional</small></label>
+                    <input type="file" id="photo" name="photo" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Simpan" class="btn btn-primary">
+                </div>
+                </div>
+            </form>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="deleteBukuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteProdukModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -103,13 +129,13 @@
         </div>
         <div class="modal-body">
         Apakah anda yakin akan menghapus data tersebut?
-          <form method="post" action="{{ route('admin.product.delete') }}" enctype="multipart/form-data">
+          <form method="post" action="" enctype="multipart/form-data">
               @csrf
               @method('DELETE')
         </div>
         <div class="modal-footer">
           <input type="hidden" name="id" id="delete-id" value=""/>
-          <input type="hidden" name="old_cover" id="delete-old-cover"/>
+          <input type="hidden" name="old_cover" id="delete-old-foto"/>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
           <button type="submit" class="btn btn-danger">Hapus</button>
           </form>
@@ -117,60 +143,3 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-@section('js')
-    <script>
-        $(function(){
-            $("#datepicker").datepicker( {
-                format: "yyyy", // Notice the Extra space at the beginning
-                viewMode: "years",
-                minViewMode: "years"
-            });
-            $(document).on('click', '#btn-delete-produk', function(){
-                let id = $(this).data('id');
-                let cover = $(this).data('cover');
-                $('#delete-id').val(id);
-                $('#delete-old-cover').val(cover);
-                console.log("hallo");
-            });
-
-            $(document).on('click', '#btn-edit-produk', function(){
-                let id = $(this).data('id');
-
-                $('#image-area').empty();
-
-                $.ajax({
-                    type: "get",
-                    url: baseurl+'/admin/ajaxadmin/dataBuku/'+id,
-                    dataType: 'json',
-                    success: function(res){
-                        $('#edit-judul').val(res.judul);
-                        $('#edit-penerbit').val(res.penerbit);
-                        $('#edit-penulis').val(res.penulis);
-                        $('#edit-tahun').val(res.tahun);
-                        $('#edit-id').val(res.id);
-                        $('#edit-old-cover').val(res.cover);
-
-                        if (res.cover !== null) {
-                            $('#image-area').append(
-                                "<img src='"+baseurl+"/storage/cover_buku/"+res.cover+"' width='200px'/>"
-                            );
-                        } else {
-                            $('#image-area').append('[Gambar tidak tersedia]');
-                        }
-                    },
-                });
-            });
-
-        });
-    </script>
-@stop

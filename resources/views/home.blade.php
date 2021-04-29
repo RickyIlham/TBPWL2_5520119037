@@ -7,11 +7,15 @@
 @stop
 
 @section('content')
-    @if($user->roles_id == 1)
-        Anda Login Sebagai Admin
-    @else
-        Anda Login Sebagai User
+
+     @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
     @endif
+
+    {{ __('You are logged in!') }}
+                
 @stop
 
 @section('footer')
