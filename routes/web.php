@@ -32,6 +32,8 @@ Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'
 
 Route::get('/Admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user')->middleware('is_admin');
 
+Route::get('/Admin/reportin', [App\Http\Controllers\Admin\ReportInController::class, 'index'])->name('admin.reports')->middleware('is_admin');
+
 
 Route::get('/Admin/ajax/dataUser/{id}', [App\Http\Controllers\Admin\UserController::class, 'getDataUser']);
 

@@ -29,14 +29,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $no=1; @endphp
+                                @php 
+                                $no=1; 
+                                @endphp
+
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->qty }}</td>
-                                        <td>{{ $product->brands_id }}</td>
-                                        <td>{{ $product->categories_id }}</td>
+                                        <td>{{ $product->brands_id}}</td>
+                                        <td>{{ $product->categories_id}}</td>
                                         <td>
                                             @if ($product->photo !== null)
                                                 <img src="{{ asset('storage/photo_product/'.$product->photo) }}" width="100px">
@@ -156,14 +159,14 @@
                             <div class="form-group" id="image-area"></div>
                             <div class="form-group">
                                 <label for="edit-photo">Photo</label>
-                                <input type="file" class="form-control" name="photo" id="edit-cover">
+                                <input type="file" class="form-control" name="photo" id="edit-photo">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="edit-id">
-                    <input type="hidden" name="old_photo" id="edit-old-cover">
+                    <input type="hidden" name="old_photo" id="edit-old-photo">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-success">Update</button>
                 </form>
@@ -220,8 +223,8 @@
                         $('#edit-brands_id').val(res.brands_id);
                         $('#edit-categories_id').val(res.categories_id);
                         $('#edit-old-photo').val(res.photo);
-                        if (res.cover !== null){
-                            // $('image-area').append("<img src='" + baseurl + "/storage/photo_product/" + res.photo + "' width='200px'>");
+                        if (res.photo != null){
+                            
                             $('#image-area').append(`<img src="${baseurl}/storage/photo_product/${res.photo}" width="200px"/>`);
                         } else {
                             $('#image-area').append('[Gambar tidak Tersedia]');

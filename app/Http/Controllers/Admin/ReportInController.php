@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\Reports;
+use Illuminate\Support\Facades\Storage;
 
-class ReportOutController extends Controller
+class ReportInController extends Controller
 {
-    public function index(Request $request)
+
+    public function __construct()
     {
-        $checkFrom = $request->from;
-        $checkTo = $request->to;
-        $reportIn = Attendance::where('type','in')
-        ->when($checkFrom, function ($query) use ($request) {
-            $query->whereDate('check_in', '>=', $request->to_date);
-        })
-        ->when($checkTo, function ($query) use ($request) {
-            $query->whereDate('check_in', '<=', $request->to_date);
-        })
-        ->get();
-        return view('admin.report.out.index',compact('reportIn'));
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        $user = Auth::user();
+        $reports = Reports::all();
+        return view('admin.reportin', compact('reports'));
     }
 }

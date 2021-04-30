@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('qty');
             $table->string('photo')->nullable();
             $table->timestamps();
-
+            $table->index('id');
         });
         
         

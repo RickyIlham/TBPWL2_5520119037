@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'KYODAN',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<h1>KYODAN</h1>.id',
+    'logo' => '<h4><b>KYODAN</b></h4>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -261,13 +261,19 @@ return [
             'can'         => ['isUser','isAdmin'],
         ],
         [
+            'text'        => 'Transaksi',
+            'url'         => 'transaksi',
+            'icon'        => 'fas fa-fw fa-exchange-alt',
+            'can'         => ['isUser','isAdmin'],
+        ],
+        [
             'text'        => 'Laporan',
             'icon'        => 'fas fa-fw fa-book',
             'can'         => 'isAdmin',
             'submenu'     =>[
                                 [
                                     'text'        => ' Laporan Barang Masuk',
-                                    'url'         => 'admin/laporan/masuk',
+                                    'url'         => 'Admin/reportin',
                                 ],
                                 [
                                     'text'        => 'Laporan Barang Keluar',

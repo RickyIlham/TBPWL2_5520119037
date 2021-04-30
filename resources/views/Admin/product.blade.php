@@ -3,7 +3,7 @@
 @section('title', 'Pengelolaan Barang')
 
 @section('content_header')
-    <h1>Pengelolaan Buku</h1>
+    <h1>Pengelolaan Barang</h1>
 @stop
 
 @section('content')
@@ -33,24 +33,24 @@
                            </thead>
                            <tbody>
                                 @php $no=1; @endphp
-                                @foreach($products as $products)
+                                @foreach($products as $key => $product)
                                     <tr>
                                         <td>{{$no++}}</td>
-                                        <td>{{$products->name}}</td>
-                                        <td>{{$products->categories_id}}</td>
-                                        <td>{{$products->brands_id}}</td>
-                                        <td>{{$products->qty}}</td>
+                                        <td>{{$product->name}}</td>
+                                        <td>{{$product->category->categories_id}}</td>
+                                        <td>{{$product->brand->brands_id}}</td>
+                                        <td>{{$product->qty}}</td>
                                         <td>
-                                            @if($products->foto !== null)
-                                                <img src="{{ asset('storage/foto_barang/'.$products->foto) }}" width="100px"/>
+                                            @if($product->foto !== null)
+                                                <img src="{{ asset('storage/foto_barang/'.$product->foto) }}" width="100px"/>
                                             @else
                                                 [Gambar tidak tersedia]
                                             @endif
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" id="btn-edit-produk" class="btn btn-success" data-toggle="modal" data-target="#editProdukModal" data-id="{{ $products->id }}">Ubah</button>
-                                                <button type="button" id="btn-delete-produk" class="btn btn-danger" data-toggle="modal" data-target="#deleteProdukModal" data-id="{{ $products->id }}" data-foto="{{ $products->foto }}">Hapus</button>
+                                                <button type="button" id="btn-edit-produk" class="btn btn-success" data-toggle="modal" data-target="#editProdukModal" data-id="{{ $product->id }}">Ubah</button>
+                                                <button type="button" id="btn-delete-produk" class="btn btn-danger" data-toggle="modal" data-target="#deleteProdukModal" data-id="{{ $product->id }}" data-foto="{{ $product->foto }}">Hapus</button>
                                             </div>
                                         </td>
                                     </tr>
