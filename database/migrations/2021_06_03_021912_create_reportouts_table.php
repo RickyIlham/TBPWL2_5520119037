@@ -15,7 +15,7 @@ class CreateReportoutsTable extends Migration
     {
         Schema::create('reportouts', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_product');
+            $table->string('id_product');
             
             $table->integer('qty');
             $table->timestamps();

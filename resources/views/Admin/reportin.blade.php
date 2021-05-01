@@ -15,7 +15,7 @@
 
                     <div class="card-body">
                     <a href="{{ route('admin.print_reportin') }}" target="_blank" class="btn btn-secondary float-right"><i class="fa fa-print"></i> Cetak PDF</a>
-                        <hr/>
+                        
                         <hr/>
                         <table id="table-data" class="table table-borderer">
                         <thead>

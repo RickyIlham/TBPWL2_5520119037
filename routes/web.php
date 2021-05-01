@@ -19,20 +19,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::get('/brands', function(){
-//     $brands = App\Brands::all();
-
-//     foreach ($brands as $br) {
-//         echo $br->name;
-//     }
-// });
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'index'])
-//         ->name('admin.home')
-//         ->middleware('is_admin');
+
 
 Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index']);
 
@@ -68,8 +58,9 @@ Route::middleware('is_admin')->prefix('admin')->group(function(){
     Route::delete('/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])->name('product.delete');
 
     Route::get('/take', [App\Http\Controllers\TakeController::class, 'index'])->name('take');
-    Route::get('/take', [App\Http\Controllers\TakeController::class, 'submit_take'])->name('take.submit');
+    Route::post('/take', [App\Http\Controllers\TakeController::class, 'submit_take'])->name('take.submit');
 
     Route::get('/Admin/reportin', [App\Http\Controllers\Admin\ReportInController::class, 'index'])->name('admin.reports')->middleware('is_admin');
     Route::get('/Admin/print_reportin', [App\Http\Controllers\Admin\ReportInController::class, 'print_reportin'])->name('admin.print_reportin')->middleware('is_admin');
     Route::get('/Admin/reportout', [App\Http\Controllers\Admin\ReportOutController::class, 'index'])->name('admin.reportouts')->middleware('is_admin');
+    Route::get('/Admin/print_reportout', [App\Http\Controllers\Admin\ReportOutController::class, 'print_reportout'])->name('admin.print_reportout')->middleware('is_admin');

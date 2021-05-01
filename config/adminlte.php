@@ -260,7 +260,7 @@ return [
             'can'         => ['isUser','isAdmin'],
         ],
         [
-            'text'        => 'Transaksi',
+            'text'        => 'Pengambilan Barang',
             'url'         => 'take',
             'icon'        => 'fas fa-fw fa-exchange-alt',
             'can'         => ['isUser','isAdmin'],

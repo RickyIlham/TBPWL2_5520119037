@@ -3,7 +3,7 @@
 @section('title', 'Kyodan.id')
 
 @section('content_header')
-    <h1> Transaksi</h1>
+    <h1> Pengambilan Barang</h1>
 @stop
 
 @section('content')
@@ -30,9 +30,9 @@
                                 @foreach($takes as $take)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $take->products->name }}</td>
+                                        <td>{{ $take->id_product }}</td>
                                         <td>{{ $take->qty }}</td>
-                                        <td><div class="alert alert-success" role="alert">Success</div></td>
+                                        <td><div class="alert alert-success text-center" role="alert">Success</div></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -60,7 +60,7 @@
                             <label for="id_product">NAMA BARANG</label>
                             <select id="id_product" class="form-control" name="id_product">
                                 @foreach($products as $product)
-                                <option  class="form-control" name="id_product" value="{{ $product->id }}">{{ $product->name }}</option>
+                                <option  class="form-control" name="id_product" value="{{ $product->name }}">{{ $product->name }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -26,14 +26,11 @@ class TakeController extends Controller
         return view('take', compact('takes', 'products'));
 
     }
-
-
-    
-    public function submit_take(Request $req){
+    public function submit_take(Request $reque){
         $take = new Take;
-
-        $take->id_product = $req->get('id_product');
-        $take->qty = $req->get('qty');
+        
+        $take->id_product = $reque->get('id_product');
+        $take->qty =$reque->get('qty');
         
 
         $take->save();
@@ -44,5 +41,30 @@ class TakeController extends Controller
         );
 
         return redirect()->route('take')->with($notification);
+    }
+
+    public function store(Request $reque)
+    {
+        $take = new Take;
+
+        $products = Product::findOrFail($reque->id);
+        $take->id_product = $reque->get('id_product');
+        $take->qty =$products->qty -= $reque->get('qty');
+       
+        $take->save();
+
+        $notification = array(
+            'message' => 'Data Produk berhasil ditambahkan',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('take')->with($notification);
+    }
+
+    public function getDataTake($id)
+    {
+        $take = Take::find($id);
+
+        return response()->json($take);
     }
 }

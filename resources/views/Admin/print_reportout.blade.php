@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1 class="text-center">Data Barang</h1>
-    <p class="text-center">Laporan Data Barang Masuk Tahun 2021 </p>
+    <p class="text-center">Laporan Data Barang KeluarTahun 2021 </p>
     <br/>
     <table id="table-data" class="table table-bordered">
     <thead>
@@ -18,12 +18,12 @@
                             </thead>
                             <tbody>
                                 @php $no=1; @endphp
-                                @foreach($reports as $report)
+                                @foreach($reportouts as $reportout)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $report->name }}</td>
-                                        <td>{{ $report->qty }}</td>
-                                        <td>{{ $report->created_at}}</td>
+                                        <td>{{ $reportout->name }}</td>
+                                        <td>{{ $reportout->qty }}</td>
+                                        <td>{{ $reportout->created_at}}</td>
                                         
                                     </tr>
                                 @endforeach

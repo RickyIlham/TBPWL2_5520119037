@@ -39,21 +39,24 @@ class UserController extends Controller
             'username' => 'unique:users',
             'email' => 'email|unique:users'
         ]);
-        $data['name'] = $req->name;
-        $data['username'] = $req->username;
-        $data['email'] = $req->email;
-        $data['password'] = bcrypt($req->password);
-        $data['roles_id'] = $req->roles_id;
+
+        $user = new User;
+        $user['name'] = $req->name;
+        $user['username'] = $req->username;
+        $user['email'] = $req->email;
+        $user['password'] = bcrypt($req->password);
+        $user['roles_id'] = $req->roles_id;
+        $user['photo'] = $req->photo;
         
         if($req->photo != null){
             $photo = $req->file('photo');
             $size = $photo->getSize();
-            $namePhoto = time() . "_" . $photo->getClientOriginalName();
+            $namePhoto = 'photo_user'.time() . "_" . $photo->getClientOriginalName();
             $path = 'storage/photo_user';
             $photo->move($path, $namePhoto);
-            $data['photo'] =  $namePhoto;
+            $user['photo'] =  $namePhoto;
         }
-        $user = User::create($data);
+        $user = User::create($user);
         return redirect(route('user'))->with('success','Berhasil ditambahkan');
     }
 
@@ -68,10 +71,10 @@ class UserController extends Controller
     public function update_user(Request $request){
         
         $user = User::find($request->get('id'));
-        $data['name'] = $request->name;
-        $data['username'] = $request->username;
-        $data['email'] = $request->email;
-        $data['roles_id'] = $request->role_id;
+        $user['name'] = $request->name;
+        $user['username'] = $request->username;
+        $user['email'] = $request->email;
+        $user['roles_id'] = $request->role_id;
         
         if($request->photo != null){
             $imgWillDelete = public_path() . '/storage/photo_user/'.$user->photo;
@@ -79,15 +82,15 @@ class UserController extends Controller
 
             $photo = $request->file('photo');
             $size = $photo->getSize();
-            $namePhoto = time() . "_" . $photo->getClientOriginalName();
+            $namePhoto = 'photo_user'.time() . "_" . $photo->getClientOriginalName();
             $path = '/storage/photo_user/';
             $photo->move($path, $namePhoto);
-            $data['photo'] =  $namePhoto;
+            $user['photo'] =  $namePhoto;
         }
         if($request->password != null){
-            $data['password'] = bcrypt($request->password);
+            $user['password'] = bcrypt($request->password);
         }
-        $user->update($data);
+        $user->update($user);
         return redirect(route('user'))->with('success','Berhasil diubah');
     }
 

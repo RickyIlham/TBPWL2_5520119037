@@ -3,7 +3,7 @@
 @section('title', 'Kyodan.id')
 
 @section('content_header')
-    <h1>Pengelolaan Brands</h1>
+    <h1>Pengelolaan Merk</h1>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <!-- <div class="card-header">
-                        {{ __('Pengelolaan BRANDS')}}
+                        {{ __('Pengelolaan Merk')}}
                     </div> -->
                     <div class="card-body">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tambahBRANDS">
@@ -59,7 +59,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Categories</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Merk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-labelledby="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -88,7 +88,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit/Update Data Categories</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit/Update Data Merk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-labelledby="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -119,7 +119,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Data Categories</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Data Merk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-labelledby="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">

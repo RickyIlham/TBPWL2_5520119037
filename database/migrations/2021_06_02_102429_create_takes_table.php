@@ -15,7 +15,7 @@ class CreateTakesTable extends Migration
     {
         Schema::create('takes', function (Blueprint $table) {
             $table->id();
-            $table->Integer('id_product');
+            $table->string('id_product');
             
             $table->integer('qty');
             $table->timestamps();
