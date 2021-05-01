@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\User;
+
 class CreateUsersSeeder extends Seeder
 {
     /**
@@ -17,20 +16,21 @@ class CreateUsersSeeder extends Seeder
             [
                 'name' => 'isUser',
                 'username' => 'isUser',
-                'email' => 'User@dummy.com',
-                'password' => bcrypt('1234'),
-                'photo' => 'image.png',
+                'email' => 'user@dummy.com',
+                'password' => bcrypt('123'),
+                'photo' => 'user.jpg',
                 'roles_id' => 2
             ],
             [
                 'name' => 'isAdmin',
                 'username' => 'isAdmin',
-                'email' => 'Admin@dummy.com',
+                'email' => 'admin@dummy.com',
                 'password' => bcrypt('123'),
-                'photo' => 'images.png',
+                'photo' => 'admin.jpg',
                 'roles_id' => 1
             ]
         ];
+
         foreach ($user as $key => $value){
             User::create($value);
         }

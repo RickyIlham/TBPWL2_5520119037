@@ -3,20 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\User;
+use App\brands;
+use App\Categories;
+use App\product;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $products = Product::count();
-        $categories = Category::count();
-        $brands = Brand::count();
-        $users = User::count();
-        return view('admin.index',compact('products','brands','categories','users'));
+        $productsco = Product::count();
+        $categoriesco = Categories::count();
+        $brandsco = brands::count();
+        $usersco = User::count();
+        $products = Product::all();
+        $categories = Categories::all();
+        $brands= brands::all();
+        $users = User::all();
+        return view('admin.index',compact('productsco','brandsco','categoriesco','usersco', 'products', 'brands', 'categories', 'users'));
     }
 }

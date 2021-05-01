@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,56 +16,60 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/main', function () {
-    return view('main');
-});
+// Route::get('/brands', function(){
+//     $brands = App\Brands::all();
+
+//     foreach ($brands as $br) {
+//         echo $br->name;
+//     }
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'index'])
+//         ->name('admin.home')
+//         ->middleware('is_admin');
 
-Route::get('/brand', [App\Http\Controllers\BrandController::class, 'index'])->name('brand');
-
-Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
-
-Route::get('/Admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user')->middleware('is_admin');
-
-Route::get('/Admin/reportin', [App\Http\Controllers\Admin\ReportInController::class, 'index'])->name('admin.reports')->middleware('is_admin');
-
-
-Route::get('/Admin/ajax/dataUser/{id}', [App\Http\Controllers\Admin\UserController::class, 'getDataUser']);
-
-
-Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
-Route::get('/ajax/dataProduct/{id}', [App\Http\Controllers\ProductController::class, 'getDataProduct']);
-Route::post('/product', [App\Http\Controllers\ProductController::class, 'submit_product'])->name('product.submit');
-Route::patch('/product/update', [App\Http\Controllers\ProductController::class, 'update_product'])->name('product.update');
-Route::delete('/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])->name('product.delete');
-
-// pengelolaan user
-Route::post('/Admin/user', [App\Http\Controllers\Admin\UserController::class, 'submit_user'])->name('user.submit');
-Route::patch('/Admin/user/update', [App\Http\Controllers\Admin\UserController::class, 'update_usesr'])->name('user.update');
-Route::delete('/Admin/user/delete', [App\Http\Controllers\Admin\UserController::class, 'delete_user'])->name('user.delete');
-
-Route::get('/ajax/dataBrand/{id}', [App\Http\Controllers\BrandController::class, 'getDataBrand']);
-
-// pengelolaan brand
-Route::post('/brand', [App\Http\Controllers\BrandController::class, 'submit_brand'])->name('brand.submit');
-Route::patch('/brand/update', [App\Http\Controllers\BrandController::class, 'update_brand'])->name('brand.update');
-Route::delete('/brand/delete', [App\Http\Controllers\BrandController::class, 'delete_brand'])->name('brand.delete');
-
-
-Route::get('/ajax/dataBrand/{id}', [App\Http\Controllers\CategoryController::class, 'getDataBrand']);
-
-// pengelolaan category
-Route::post('/category', [App\Http\Controllers\CategoryController::class, 'submit_category'])->name('category.submit');
-Route::patch('/category/update', [App\Http\Controllers\CategoryController::class, 'update_category'])->name('category.update');
-Route::delete('/category/delete', [App\Http\Controllers\CategoryController::class, 'delete_category'])->name('category.delete');
-
+Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index']);
 
 Route::middleware('is_admin')->prefix('admin')->group(function(){
-    Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.home');
+    
+    Route::get('/user', [App\Http\Controllers\AdminController::class, 'users'])->name('user');
+    Route::post('/user', [App\Http\Controllers\AdminController::class, 'submit_user'])->name('user.submit');
+    Route::patch('/user/update', [App\Http\Controllers\AdminController::class, 'update_user'])->name('user.update');
+    Route::delete('/user/delete', [App\Http\Controllers\AdminController::class, 'delete_user'])->name('user.delete');
+    Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('home');
+
 });
+    Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.home');
+    Route::get('/ajax/dataUser/{id}', [App\Http\Controllers\AdminController::class, 'getDataUser'])->middleware('is_admin');
+    Route::get('/ajax/dataProduct/{id}', [App\Http\Controllers\ProductController::class, 'getDataProduct'])->middleware('is_admin');
+       
+    Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'categories'])->name('admin.categories');
+    Route::post('/categories', [App\Http\Controllers\CategoryController::class, 'submit_categories'])->name('admin.categories.submit');
+    Route::get('/ajaxadmin/dataCategories/{id}', [App\Http\Controllers\CategoryController::class, 'getDataCategories']);
+    Route::patch('/categories/update', [App\Http\Controllers\CategoryController::class, 'update_categories'])->name('admin.categories.update');
+    Route::delete('/categories/delete', [App\Http\Controllers\CategoryController::class, 'delete_categories'])->name('admin.categories.delete');
+
+    Route::get('/brands', [App\Http\Controllers\BrandController::class, 'brands'])->name('admin.brands');
+    Route::post('/brands', [App\Http\Controllers\BrandController::class, 'submit_brands'])->name('admin.brands.submit');
+    Route::get('/ajaxadmin/dataBrands/{id}', [App\Http\Controllers\BrandController::class, 'getDataBrands']);
+    Route::patch('/brands/update', [App\Http\Controllers\BrandController::class, 'update_brands'])->name('admin.brands.update');
+    Route::delete('/brands/delete', [App\Http\Controllers\BrandController::class, 'delete_brands'])->name('admin.brands.delete');
+
+    Route::get('/product', [App\Http\Controllers\ProductController::class, 'products'])->name('product');
+    
+    Route::post('/product', [App\Http\Controllers\ProductController::class, 'submit_product'])->name('product.submit');
+    Route::patch('/product/update', [App\Http\Controllers\ProductController::class, 'update_product'])->name('product.update');
+    Route::delete('/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])->name('product.delete');
+
+    Route::get('/take', [App\Http\Controllers\TakeController::class, 'index'])->name('take');
+    Route::get('/take', [App\Http\Controllers\TakeController::class, 'submit_take'])->name('take.submit');
+
+    Route::get('/Admin/reportin', [App\Http\Controllers\Admin\ReportInController::class, 'index'])->name('admin.reports')->middleware('is_admin');
+    Route::get('/Admin/print_reportin', [App\Http\Controllers\Admin\ReportInController::class, 'print_reportin'])->name('admin.print_reportin')->middleware('is_admin');
+    Route::get('/Admin/reportout', [App\Http\Controllers\Admin\ReportOutController::class, 'index'])->name('admin.reportouts')->middleware('is_admin');

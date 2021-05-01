@@ -15,8 +15,8 @@ class CreateTakesTable extends Migration
     {
         Schema::create('takes', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('id_product')->unsigned();
-            $table->string('name');
+            $table->Integer('id_product');
+            
             $table->integer('qty');
             $table->timestamps();
 

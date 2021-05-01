@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Facades\Auth;
+use Closure;
 
 class IsAdmin
 {
@@ -14,11 +15,12 @@ class IsAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (auth()->user()->roles_id == 1){
+        if(auth()->user()->roles_id == 1){
             return $next($request);
         }
-        return redirect('home')->with('error','Anda tidak memiliki akses sebagai admin');
+        
+        return redirect()->route('home');
     }
 }

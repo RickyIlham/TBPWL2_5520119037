@@ -13,7 +13,7 @@ class AddQtyCheckTrigger extends Migration
      */
     public function up()
     {
-        \Illuminate\Support\Facades\DB::unprepared('CREATE TRIGGER qtycheck AFTER INSERT ON products
+        \Illuminate\Support\Facades\DB::unprepared('CREATE TRIGGER addqtycheck AFTER INSERT ON products
         FOR EACH ROW
             IF NEW.id != 0
                 THEN
@@ -28,6 +28,6 @@ class AddQtyCheckTrigger extends Migration
      */
     public function down()
     {
-        \Illuminate\Support\Facades\DB::unprepared('DROP TRIGGER `qtycheck`');
+        \Illuminate\Support\Facades\DB::unprepared('DROP TRIGGER `addqtycheck`');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -25,45 +26,38 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function users(Request $req)
     {
         $user = Auth::user();
-        $Users = user::all();
-        return view('admin.user', compact('Users'));
+        $users = User::all();
+        $roles = Role::all();
+        return view('user', compact('user', 'users', 'roles'));
     }
 
     public function submit_user(Request $req){
-        $user = new User;
-
-        $user->name = $req->get('name');
-        $user->username = $req->get('username');
-        $user->email = $req->get('email');
-        $user->password = $req->get('password');
-        $user->roles_id = $req->get('roles_id');
-
-        if ($req->hasFile('photo')) {
-            $extension = $req->file('photo')->extension();
-
-            $filename = 'photo_user_'.time().'.'.$extension;
-
-            $req->file('photo')->storeAs(
-                'public/photo_user', $filename
-            );
-            
-           
-            $user->photo = $filename;
+        $this->validate($req, [
+            'username' => 'unique:users',
+            'email' => 'email|unique:users'
+        ]);
+        $data['name'] = $req->name;
+        $data['username'] = $req->username;
+        $data['email'] = $req->email;
+        $data['password'] = bcrypt($req->password);
+        $data['roles_id'] = $req->roles_id;
+        
+        if($req->photo != null){
+            $photo = $req->file('photo');
+            $size = $photo->getSize();
+            $namePhoto = time() . "_" . $photo->getClientOriginalName();
+            $path = 'storage/photo_user';
+            $photo->move($path, $namePhoto);
+            $data['photo'] =  $namePhoto;
         }
-
-        $user->save();
-        $notification = array(
-            'message' => 'Data Kategori berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('user.submit')->with($notification);
+        $user = User::create($data);
+        return redirect(route('user'))->with('success','Berhasil ditambahkan');
     }
 
-
-    // ajax prosess
+    // ajax user
     public function getDataUser($id)
     {
         $user = User::find($id);
@@ -71,39 +65,32 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // update user
-    public function update_user(Request $req)
-    {
-        $user = User::find($req->get('id'));
+    public function update_user(Request $request){
+        
+        $user = User::find($request->get('id'));
+        $data['name'] = $request->name;
+        $data['username'] = $request->username;
+        $data['email'] = $request->email;
+        $data['roles_id'] = $request->role_id;
+        
+        if($request->photo != null){
+            $imgWillDelete = public_path() . '/storage/photo_user/'.$user->photo;
+            Storage::delete($imgWillDelete);
 
-        $user->name = $req->get('name');
-        $user->username = $req->get('username');
-        $user->email = $req->get('email');
-        $user->password = $req->get('password');
-        $user->roles_id = $req->get('roles_id');
-
-        if ($req->hasFile('photo')) {
-            $extension = $req->file('photo')->extension();
-
-            $filename = 'photo_user_'.time().'.'.$extension;
-
-            $req->file('photo')->storeAs(
-                'public/photo_user', $filename
-            );
-            
-            Storage::delete('public/photo_user/'.$req->get('old_photo'));
-            $user->photo = $filename;
+            $photo = $request->file('photo');
+            $size = $photo->getSize();
+            $namePhoto = time() . "_" . $photo->getClientOriginalName();
+            $path = '/storage/photo_user/';
+            $photo->move($path, $namePhoto);
+            $data['photo'] =  $namePhoto;
         }
-
-        $user->save();
-
-        $notification = array(
-            'message' => 'Data Kategori berhasil diubah',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('user.update')->with($notification);
+        if($request->password != null){
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+        return redirect(route('user'))->with('success','Berhasil diubah');
     }
+
 
     public function delete_user(Request $req)
     {

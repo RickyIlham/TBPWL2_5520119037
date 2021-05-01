@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Brand;
+use App\brands;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
@@ -25,67 +25,66 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function brands()
     {
         $user = Auth::user();
-        $brands = brand::all();
-        return view('brand', compact('brands'));
+        $brands = Brands::all();
+        return view('brands', compact('user', 'brands'));
     }
 
-    public function submit_brand(Request $req){
-        $brand = new Brand;
+    public function submit_brands(Request $req)
+    {
+        $br = new brands;
 
-        $brand->name = $req->get('name');
-        $brand->description = $req->get('description');
+        $br->name = $req->get('name');
+        $br->description = $req->get('description');
 
-        $brand->save();
+        $br->save();
 
         $notification = array(
-            'message' => 'Data Merk berhasil ditambahkan',
+            'message' => 'Data Categories berhasil ditambahkan',
+            'alert-type' => 'succes'
+        );
+
+        return redirect()->route('admin.brands')->with($notification);
+    }
+
+    // AJAX PROCESS BRANDS
+    public function getDataBrands($id)
+    {
+        $br = Brands::find($id);
+
+        return response()->json($br);
+    }
+
+    public function update_brands(Request $req)
+    {
+        $br = Brands::find($req->get('id'));
+
+        $br->name = $req->get('name');
+        $br->description = $req->get('description');
+
+        $br->save();
+
+        $notification = array(
+            'message' => 'Data Categories berhasil diubah',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('brand')->with($notification);
+        return redirect()->route('admin.brands')->with($notification);
     }
 
-
-    // ajax prosess
-    public function getDataBrand($id)
+    public function delete_brands(Request $req)
     {
-        $brand = Brand::find($id);
+        $br = Brands::find($req->get('id'));
 
-        return response()->json($brand);
-    }
-
-    // update brand
-    public function update_brand(Request $req)
-    {
-        $brand = Brand::find($req->get('id'));
-
-        $brand->name = $req->get('name');
-        $brand->description = $req->get('description');
-
-        $brand->save();
+        $br->delete();
 
         $notification = array(
-            'message' => 'Data Merk berhasil diubah',
-            'alert-type' => 'success'
+            'message' => 'Data Buku Berhasil Dihapus',
+            'alert-type' => 'succes'
         );
 
-        return redirect()->route('brand')->with($notification);
-    }
-
-    public function delete_brand(Request $req)
-    {
-        $brand = Brand::find($req->get('id'));
-
-        $brand->delete();
-
-        $notification = array(
-            'message' => 'Data Merk berhasil dihapus',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('brand')->with($notification);
+        return redirect()->route('admin.brands')->with($notification);
     }
 }

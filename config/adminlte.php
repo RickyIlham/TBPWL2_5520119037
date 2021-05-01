@@ -10,11 +10,11 @@ return [
     | Here you can change the default title of your admin panel.
     |
     | For detailed instructions you can look the title section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
-    'title' => 'KYODAN',
+    'title' => 'Kyodan.id',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -26,7 +26,7 @@ return [
     | Here you can activate the favicon.
     |
     | For detailed instructions you can look the favicon section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
@@ -41,12 +41,12 @@ return [
     | Here you can change the logo of your admin panel.
     |
     | For detailed instructions you can look the logo section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
-    'logo' => '<h4><b>KYODAN</b></h4>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Kyodan.id</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/Kyo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -60,7 +60,7 @@ return [
     | Here you can activate and change the user menu.
     |
     | For detailed instructions you can look the user menu section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
@@ -79,7 +79,7 @@ return [
     | Here we change the layout of your admin panel.
     |
     | For detailed instructions you can look the layout section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/7.-Layout-and-Styling-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
 
@@ -97,7 +97,7 @@ return [
     | Here you can change the look and behavior of the authentication views.
     |
     | For detailed instructions you can look the auth classes section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/7.-Layout-and-Styling-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
 
@@ -116,7 +116,7 @@ return [
     | Here you can change the look and behavior of the admin panel.
     |
     | For detailed instructions you can look the admin panel classes here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/7.-Layout-and-Styling-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
 
@@ -140,7 +140,7 @@ return [
     | Here we can modify the sidebar of the admin panel.
     |
     | For detailed instructions you can look the sidebar section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/7.-Layout-and-Styling-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
 
@@ -162,7 +162,7 @@ return [
     | Here we can modify the right sidebar aka control sidebar of the admin panel.
     |
     | For detailed instructions you can look the right sidebar section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/7.-Layout-and-Styling-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
 
@@ -182,7 +182,7 @@ return [
     | Here we can modify the url settings of the admin panel.
     |
     | For detailed instructions you can look the urls section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/6.-Basic-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
@@ -203,7 +203,7 @@ return [
     | Here we can enable the Laravel Mix option for the admin panel.
     |
     | For detailed instructions you can look the laravel mix section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/9.-Other-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
     */
 
@@ -219,12 +219,11 @@ return [
     | Here we can modify the sidebar/top navigation of the admin panel.
     |
     | For detailed instructions you can look here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/8.-Menu-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
 
     'menu' => [
-        
         [
             'text' => 'search',
             'search' => true,
@@ -232,13 +231,13 @@ return [
         ],
         [
             'text'        => 'Dashboard',
-            'url'         => 'admin/home',
-            'icon'        => 'fas fa-fw fa-home',
-            'can'         => ['isUser','isAdmin'],
+            'url'         => 'home',
+            'icon'        => 'fas fa-fw fa-tachometer-alt',
+            
         ],
         [
             'text'        => 'Users',
-            'url'         => 'Admin/user',
+            'url'         => 'admin/user',
             'icon'        => 'fas fa-fw fa-user',
             'can'         => 'isAdmin',
         ],
@@ -249,20 +248,20 @@ return [
             'can'         => ['isUser','isAdmin'],
         ],
         [
-            'text'        => 'Kategori Barang',
-            'url'         => 'category',
-            'icon'        => 'fas fa-fw fa-folder',
-            'can'         => ['isUser','isAdmin'],
-        ],
-        [
             'text'        => 'Merk Barang',
-            'url'         => 'brand',
+            'url'         => 'brands',
             'icon'        => 'fas fa-fw fa-pen',
             'can'         => ['isUser','isAdmin'],
         ],
         [
+            'text'        => 'Kategori Barang',
+            'url'         => 'categories',
+            'icon'        => 'fas fa-fw fa-folder',
+            'can'         => ['isUser','isAdmin'],
+        ],
+        [
             'text'        => 'Transaksi',
-            'url'         => 'transaksi',
+            'url'         => 'take',
             'icon'        => 'fas fa-fw fa-exchange-alt',
             'can'         => ['isUser','isAdmin'],
         ],
@@ -274,15 +273,56 @@ return [
                                 [
                                     'text'        => ' Laporan Barang Masuk',
                                     'url'         => 'Admin/reportin',
+                                    'icon'        => 'fas fa-fw fa-download',
                                 ],
                                 [
                                     'text'        => 'Laporan Barang Keluar',
-                                    'url'         => 'admin/laporan/keluar',
+                                    'url'         => 'Admin/reportout',
+                                    'icon'        => 'fas fa-fw fa-upload',
                                 ],
                             ]
         ],
+        ],
+        // [
+        //     'text'    => 'multilevel',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
         
-    ],
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -292,7 +332,7 @@ return [
     | Here we can modify the menu filters of the admin panel.
     |
     | For detailed instructions you can look the menu filters section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/8.-Menu-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
 
@@ -314,9 +354,11 @@ return [
     | Here we can modify the plugins used inside the admin panel.
     |
     | For detailed instructions you can look the plugins section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/9.-Other-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
     */
+
+    
 
     'plugins' => [
         'Datatables' => [
@@ -390,7 +432,6 @@ return [
             ],
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Livewire
@@ -399,7 +440,7 @@ return [
     | Here we can enable the Livewire support.
     |
     | For detailed instructions you can look the livewire here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/9.-Other-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     */
 
     'livewire' => false,

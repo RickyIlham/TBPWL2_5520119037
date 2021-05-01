@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Reports;
+use App\Models\Report;
+use PDF;
+
+
 use Illuminate\Support\Facades\Storage;
 
 class ReportInController extends Controller
@@ -19,7 +22,15 @@ class ReportInController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $reports = Reports::all();
+        $reports = report::all();
+        
         return view('admin.reportin', compact('reports'));
+    }
+
+    public function print_reportin()
+    {
+        $reports = report::all();
+        $pdf = PDF::loadview('admin.print_reportin', ['reports' => $reports]);
+        return $pdf->download('Laporan_Barang_Masuk.pdf');
     }
 }

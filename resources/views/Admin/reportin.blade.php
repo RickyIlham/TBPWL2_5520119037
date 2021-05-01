@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'LAPORAN BARANG MASUK')
+@section('title', 'Kyodan.id')
 
 @section('content_header')
-    <h1>LAPORAN BARANG MASUK</h1>
+    <h1> Laporan Barang Masuk</h1>
 @stop
 
 @section('content')
@@ -11,13 +11,14 @@
         <div class="row justifly-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('LAPORAN BARANG MASUK') }}</div>
+                    <!-- <div class="card-header">{{ __('  ') }}</div> -->
 
                     <div class="card-body">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#tambahBrandModal"><i class="fa fa-plus"></i>Tambah Data</button>
+                    <a href="{{ route('admin.print_reportin') }}" target="_blank" class="btn btn-secondary float-right"><i class="fa fa-print"></i> Cetak PDF</a>
+                        <hr/>
                         <hr/>
                         <table id="table-data" class="table table-borderer">
-                            <thead>
+                        <thead>
                                 <tr>
                                     <th>NO</th>
                                     <th>NAME</th>
@@ -44,6 +45,7 @@
         </div>
     </div>
 
+   
     
 @stop
 
@@ -51,3 +53,8 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+@section('js')
+    <script>
+        
+    </script>
+@stop 

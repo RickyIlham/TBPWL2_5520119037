@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Category;
+use App\categories;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -25,67 +25,66 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+     public function categories()
     {
         $user = Auth::user();
-        $categories = category::all();
-        return view('category', compact('categories'));
+        $categories = Categories::all();
+        return view('categories', compact('user', 'categories'));
     }
 
-    public function submit_category(Request $req){
-        $category = new Category;
+    public function submit_categories(Request $req)
+    {
+        $cate = new categories;
 
-        $category->name = $req->get('name');
-        $category->description = $req->get('description');
+        $cate->name = $req->get('name');
+        $cate->description = $req->get('description');
 
-        $category->save();
+        $cate->save();
 
         $notification = array(
-            'message' => 'Data Kategori berhasil ditambahkan',
+            'message' => 'Data Categories berhasil ditambahkan',
+            'alert-type' => 'succes'
+        );
+
+        return redirect()->route('admin.categories')->with($notification);
+    }
+
+    // AJAX PROCESS CATEGORIES
+    public function getDataCategories($id)
+    {
+        $cate = Categories::find($id);
+
+        return response()->json($cate);
+    }
+
+    public function update_categories(Request $req)
+    {
+        $cate = Categories::find($req->get('id'));
+
+        $cate->name = $req->get('name');
+        $cate->description = $req->get('description');
+
+        $cate->save();
+
+        $notification = array(
+            'message' => 'Data Categories berhasil diubah',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('category')->with($notification);
+        return redirect()->route('admin.categories')->with($notification);
     }
 
-
-    // ajax prosess
-    public function getDataCategory($id)
+    public function delete_categories(Request $req)
     {
-        $category = Category::find($id);
+        $cate = Categories::find($req->get('id'));
 
-        return response()->json($category);
-    }
-
-    // update category
-    public function update_category(Request $req)
-    {
-        $category = Category::find($req->get('id'));
-
-        $category->name = $req->get('name');
-        $category->description = $req->get('description');
-
-        $category->save();
+        $cate->delete();
 
         $notification = array(
-            'message' => 'Data Kategori berhasil diubah',
-            'alert-type' => 'success'
+            'message' => 'Data Buku Berhasil Dihapus',
+            'alert-type' => 'succes'
         );
 
-        return redirect()->route('category')->with($notification);
-    }
-
-    public function delete_category(Request $req)
-    {
-        $category = Category::find($req->get('id'));
-
-        $category->delete();
-
-        $notification = array(
-            'message' => 'Data Kategori berhasil dihapus',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('category')->with($notification);
+        return redirect()->route('admin.categories')->with($notification);
     }
 }

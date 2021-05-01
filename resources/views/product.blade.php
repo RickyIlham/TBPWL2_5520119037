@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Kyodan.id')
 
 @section('content_header')
-    <h1>Pengelolaan Product</h1>
+    <h1>Pengelolaan Barang</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="row justifly-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Pengelolaan Product') }}</div>
+                    <div class="card-header">{{ __('Pengelolaan Barang') }}</div>
 
                     <div class="card-body">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tambahProductModal"><i class="fa fa-plus"></i>Tambah Data</button>
@@ -29,20 +29,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php 
-                                $no=1; 
-                                @endphp
-
+                                @php $no=1; @endphp
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->qty }}</td>
-                                        <td>{{ $product->brands_id}}</td>
-                                        <td>{{ $product->categories_id}}</td>
+                                        <td>{{ $product->brands->name }}</td>
+                                        <td>{{ $product->categories->name }}</td>
                                         <td>
                                             @if ($product->photo !== null)
-                                                <img src="{{ asset('storage/photo_product/'.$product->photo) }}" width="100px">
+                                                <img src="{{ asset('storage/photo_product/'.$product->photo) }}" width="50px">
                                             @else
                                                 [Gambar tidak tersedia]
                                             @endif
@@ -159,7 +156,7 @@
                             <div class="form-group" id="image-area"></div>
                             <div class="form-group">
                                 <label for="edit-photo">Photo</label>
-                                <input type="file" class="form-control" name="photo" id="edit-photo">
+                                <input type="file" class="form-control" name="photo" id="edit-cover">
                             </div>
                         </div>
                     </div>
@@ -175,7 +172,7 @@
         </div>
     </div>
 
-    {{-- delete data brand --}}
+    {{-- delete data product --}}
     <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -223,16 +220,15 @@
                         $('#edit-brands_id').val(res.brands_id);
                         $('#edit-categories_id').val(res.categories_id);
                         $('#edit-old-photo').val(res.photo);
-                        if (res.photo != null){
-                            
+                        if (res.cover !== null){
                             $('#image-area').append(`<img src="${baseurl}/storage/photo_product/${res.photo}" width="200px"/>`);
                         } else {
                             $('#image-area').append('[Gambar tidak Tersedia]');
                         }
-                    }
-                })
-            })
-        })
+                    },
+                });
+            });
+        });
         $(document).on('click', '#btn-delete-product', function(){
             let id = $(this).data('id');
             $('#delete-id').val(id);

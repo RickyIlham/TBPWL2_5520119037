@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Product;
-use App\Models\Brand;
-use App\Models\Category;
+use App\product;
+use App\brands;
+use App\categories;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -22,18 +22,12 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
-    public function index()
+    public function products(Request $req)
     {
         $user = Auth::user();
-        $products = Product::all();
-        $brands = Brand::all();
-        $categories = Category::all();
+        $products = product::all();
+        $brands = Brands::all();
+        $categories = Categories::all();
         return view('product', compact('user', 'products', 'brands', 'categories'));
     }
 
@@ -121,4 +115,5 @@ class ProductController extends Controller
 
         return redirect()->route('product')->with($notification);
     }
+
 }
